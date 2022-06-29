@@ -159,7 +159,7 @@ def main():
 				st.image('resources/images/img1.gif')
 			else:
 				st.image('resources/images/img2.gif')
-				
+
 
 	# Building out the "Information" page
 	if selection == "Information":
@@ -185,7 +185,6 @@ def main():
 		if st.checkbox('View raw data'): # data is hidden if box is unchecked
 			st.write(raw[['sentiment', 'message']]) # will write the df to the page
 
-
 		
 		st.markdown("<h1 style='text-align: right; color: white;'>Data Processing</h1>", unsafe_allow_html=True)
 
@@ -204,7 +203,7 @@ def main():
 			pass
 
 	
-		st.markdown("<h1 style='text-align: center; color: orange;'>Data Processing</h1>", unsafe_allow_html=True)
+		st.markdown("<h1 style='text-align: center; color: orange;'>Models</h1>", unsafe_allow_html=True)
 
 		st.write(
 				"""
@@ -213,11 +212,25 @@ def main():
 				"""
 			)
 
-		_image, _text = st.columns((1, 3))
+		# st.markdown("<h2 style='text-align: center; color: white;'>Models Used</h2>", unsafe_allow_html=True)	
 
-		with _image:
+		model1, model2, model3 = st.columns((1,1,1))
+
+		with model1:
+			st.markdown("<h3 style='text-align: center; color: orange;'>Logistic Regression</h3>", unsafe_allow_html=True)
+		with model2:
+			st.markdown("<h3 style='text-align: center; color: white;'>Support Vector Machines</h3>", unsafe_allow_html=True)
+		with model3:
+			st.markdown("<h3 style='text-align: center; color: orange;'>K Nearest Neighbours</h3>", unsafe_allow_html=True)
+
+		st.markdown("<h2 style='text-align: centre; color: white;'>Best and worst Performing Model</h2>", unsafe_allow_html=True)
+		
+		
+		model_perf1, model_perf2 = st.columns((1, 1))
+
+		with model_perf1:
 			pass
-		with _text:
+		with model_perf2:
 			pass
 
 		
@@ -233,10 +246,6 @@ def main():
 			st.markdown("<h4 style='text-align: left; color: white;'>Information links</h4>", unsafe_allow_html=True)
 		with _text:	
 			st.markdown("<h4 style='text-align: left; color: white;'>Recomended Tutorials</h4>", unsafe_allow_html=True)
-
-
-
-
 
 
 
