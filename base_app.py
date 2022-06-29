@@ -22,6 +22,9 @@
 
 """
 # Streamlit dependencies
+from lzma import PRESET_DEFAULT
+from matplotlib.collections import Collection
+from nbformat import write
 import streamlit as st
 import joblib,os
 from PIL import Image
@@ -40,7 +43,6 @@ raw = pd.read_csv("resources/train.csv")
 def main():
 	"""Tweet Classifier App with Streamlit """
 
-
 	st.set_page_config(page_title="Data Innov", page_icon=":earth_africa:")
 
 	# Creates a main title and subheader on your page -
@@ -56,7 +58,7 @@ def main():
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
 	options = ["About Us", "Prediction", "Information"]
-	selection = st.sidebar.radio("Navigation", options)
+	selection = st.sidebar.radio("Navigation", options, horizontal=False)
 
 
 
@@ -81,7 +83,7 @@ def main():
 
 
 		st.header("About the Plaform")
-		st.write("##")
+		# st.write("##")
 
 		project_info, project_img = st.columns((2,1))
 
@@ -112,21 +114,22 @@ def main():
 			st.image('resources/images/climate-change2.jpeg')
 
 
-
-
-	# Building out the "Information" page
-	if selection == "Information":
-		# You can read a markdown file from supporting resources folder
-		st.markdown("Some information here")
-
-		st.subheader("Raw Twitter data and label")
-		if st.checkbox('Show raw data'): # data is hidden if box is unchecked
-			st.write(raw[['sentiment', 'message']]) # will write the df to the page
-
 	# Building out the predication page
 	if selection == "Prediction":
 		st.subheader("Climate change tweet classification")
 		# Creating a text box for user input
+
+
+
+
+		# st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: center;} </style>', unsafe_allow_html=True)
+
+		# st.write('<style>div.st-bf{font-weight:bold;flex-direction:column;} div.st-ag{font-weight:bold;padding-left:10px;}</style>', unsafe_allow_html=True)
+
+		chosen_model =st.radio("",("Logistic Regression", "SVC", "SVM", "KNN" ), horizontal=True)
+
+
+
 		tweet_text = st.text_area("Enter Text","Type Here")
 
 		if st.button("Classify"):
@@ -140,8 +143,92 @@ def main():
 			# When model has successfully run, will print prediction
 			# You can use a dictionary or similar structure to make this output
 			# more human interpretable.
+
 			st.snow()
+			print(type(int(prediction)))
 			st.success("Text Categorized as: {}".format(prediction))
+
+			if(int(prediction) == -1):
+				pass
+			elif(int(prediction) == 0):
+				pass
+			elif(int(prediction) == 1):
+				pass
+			else:
+				pass
+
+
+	# Building out the "Information" page
+	if selection == "Information":
+		# You can read a markdown file from supporting resources folder
+		st.write("---")
+		st.markdown("## Data Collection")
+		collection_text, collection_img = st.columns((3,1))
+
+		with collection_text:
+			st.write(
+				"""
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				nost
+				
+				"""
+			)
+		with collection_img:
+			st.image('resources/images/kaggle1.jpg')			
+
+
+		if st.checkbox('View raw data'): # data is hidden if box is unchecked
+			st.write(raw[['sentiment', 'message']]) # will write the df to the page
+
+
+		st.write("---")
+		
+		st.markdown("## Data Processing")
+		st.write(
+				"""
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				"""
+			)
+
+		_image, _text = st.columns((1, 3))
+
+		with _image:
+			pass
+		with _text:
+			pass
+
+		st.write("---")
+		st.markdown("## Models")
+		st.write(
+				"""
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				"""
+			)
+
+		_image, _text = st.columns((1, 3))
+
+		with _image:
+			pass
+		with _text:
+			pass
+
+		st.write("---")
+		st.markdown("## Feedback")
+
+		st.write("---")
+		st.markdown("## For more information")
+		
+		st.markdown("#### Information links")
+	
+		st.markdown("#### Recomended Tutorials")
+
+
+
+
+
 
 # Required to let Streamlit instantiate our web app.  
 if __name__ == '__main__':
