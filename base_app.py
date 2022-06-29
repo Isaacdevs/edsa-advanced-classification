@@ -28,6 +28,7 @@ from nbformat import write
 import streamlit as st
 import joblib,os
 from PIL import Image
+import time
 
 # Data dependencies
 import pandas as pd
@@ -63,9 +64,9 @@ def main():
 
 
 	if selection == "About Us":
-		st.write("---")
-		st.header("About the Team")
-		st.write("##")
+	
+		st.markdown("<h2 style='text-align: left; color: white;'>About The Team</h2>", unsafe_allow_html=True)
+
 
 		team_img, team_info = st.columns((1,3))
 
@@ -82,7 +83,8 @@ def main():
 			)	
 
 
-		st.header("About the Plaform")
+		st.markdown("<h2 style='text-align: center; color: orange;'>About The Platform</h2>", unsafe_allow_html=True)
+
 		# st.write("##")
 
 		project_info, project_img = st.columns((2,1))
@@ -131,8 +133,9 @@ def main():
 
 
 		tweet_text = st.text_area("Enter Text","Type Here")
+		col1, col2, col3 = st.columns([2,1,2])
 
-		if st.button("Classify"):
+		if col2.button("CLASSIFY"):
 			# Transforming user input with vectorizer
 			vect_text = tweet_cv.transform([tweet_text]).toarray()
 			# Load your .pkl file with the model of your choice + make predictions
@@ -144,26 +147,27 @@ def main():
 			# You can use a dictionary or similar structure to make this output
 			# more human interpretable.
 
-			st.snow()
-			print(type(int(prediction)))
-			st.success("Text Categorized as: {}".format(prediction))
-
+			with st.spinner(text='In progress'):
+				time.sleep(2)
+				st.balloons()
+		
 			if(int(prediction) == -1):
-				pass
+				st.image('resources/images/img.gif')	
 			elif(int(prediction) == 0):
-				pass
+				st.image('resources/images/img0.gif')
 			elif(int(prediction) == 1):
-				pass
+				st.image('resources/images/img1.gif')
 			else:
-				pass
-
+				st.image('resources/images/img2.gif')
+				
 
 	# Building out the "Information" page
 	if selection == "Information":
 		# You can read a markdown file from supporting resources folder
 		st.write("---")
-		st.markdown("## Data Collection")
-		collection_text, collection_img = st.columns((3,1))
+		st.markdown("<h1 style='text-align: centre; color: orange;'>Data Collection</h1>", unsafe_allow_html=True)
+
+		collection_text, collection_img = st.columns((2,1))
 
 		with collection_text:
 			st.write(
@@ -182,9 +186,9 @@ def main():
 			st.write(raw[['sentiment', 'message']]) # will write the df to the page
 
 
-		st.write("---")
 		
-		st.markdown("## Data Processing")
+		st.markdown("<h1 style='text-align: right; color: white;'>Data Processing</h1>", unsafe_allow_html=True)
+
 		st.write(
 				"""
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -199,31 +203,38 @@ def main():
 		with _text:
 			pass
 
-		st.write("---")
-		st.markdown("## Models")
-		st.write(
-				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				"""
-			)
-
-		_image, _text = st.columns((1, 3))
-
-		with _image:
-			pass
-		with _text:
-			pass
-
-		st.write("---")
-		st.markdown("## Feedback")
-
-		st.write("---")
-		st.markdown("## For more information")
-		
-		st.markdown("#### Information links")
 	
-		st.markdown("#### Recomended Tutorials")
+		st.markdown("<h1 style='text-align: center; color: orange;'>Data Processing</h1>", unsafe_allow_html=True)
+
+		st.write(
+				"""
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				"""
+			)
+
+		_image, _text = st.columns((1, 3))
+
+		with _image:
+			pass
+		with _text:
+			pass
+
+		
+		st.markdown("<h1 style='text-align: centre; color: white;'>Feedback</h1>", unsafe_allow_html=True)
+
+
+		
+		st.markdown("<h2 style='text-align: center; color: orange;'>More information</h2>", unsafe_allow_html=True)
+
+		_image, _text = st.columns((1, 1))
+
+		with _image:
+			st.markdown("<h4 style='text-align: left; color: white;'>Information links</h4>", unsafe_allow_html=True)
+		with _text:	
+			st.markdown("<h4 style='text-align: left; color: white;'>Recomended Tutorials</h4>", unsafe_allow_html=True)
+
+
 
 
 
