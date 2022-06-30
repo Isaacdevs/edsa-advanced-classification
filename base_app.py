@@ -59,7 +59,7 @@ def main():
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
-	options = ["About Us", "Prediction", "Information"]
+	options = ["About Us", "Predictions", "Information"]
 	selection = st.sidebar.radio("Navigation", options, horizontal=False)
 
 
@@ -76,9 +76,10 @@ def main():
 		with team_info:
 			st.write(
 				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				nost
+				DATA INNOV: is a team of Data Scientist'. We collect data and take it throught several
+				Data Science processes to provide valuable insights. These insights can be in the form
+				of Power BI visualisations or Machine learning Models, which is what was used for this
+				platform.  
 				
 				"""
 			)	
@@ -93,22 +94,23 @@ def main():
 		with project_info:
 			st.write(
 				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-				 eu fugiat nulla pariatur. Excepteur sint occaeca
+
+				Many companies are built around lessening one’s environmental impact or carbon footprint. They
+				offer products and services that are environmentally friendly and sustainable, in line with 
+				their values and ideals. They would like to determine how people perceive climate change and 
+				whether or not they believe it is a real threat. This would add to their market research efforts
+				in gauging how their product/service may be received.
 
 
+				This platform provides an accurate and robust solution to give companies access to a broad
+				base of consumer sentiment, spanning multiple demographic and geographic categories - 
+				thus increasing their insights and informing future marketing strategies.
 
-				nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-				 eu fugiat nulla pariatur. Excepteur sint occaeca
+				There are two more section in addition About Us namely predictions and Information.
+				Predictions page for classifying text using different Models and the information page 
+				where we give some details about the processes we went through, a feedback form and 
+				some links for more information.
 
-				nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-				 eu fugiat nulla pariatur. Excepteur sint occaeca  
-				
 				"""
 			)		
 
@@ -118,7 +120,7 @@ def main():
 
 
 	# Building out the predication page
-	if selection == "Prediction":
+	if selection == "Predictions":
 		st.subheader("Climate change tweet classification")
 		# Creating a text box for user input
 
@@ -148,9 +150,9 @@ def main():
 			# You can use a dictionary or similar structure to make this output
 			# more human interpretable.
 
-			with st.spinner(text='In progress'):
-				time.sleep(2)
-				st.balloons()
+			# with st.spinner(text='In progress'):
+			# 	time.sleep(2)
+			# 	st.balloons()
 		
 			if(int(prediction) == -1):
 				st.image('resources/images/img.gif')	
