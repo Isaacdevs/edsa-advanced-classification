@@ -131,7 +131,7 @@ def main():
 
 		# st.write('<style>div.st-bf{font-weight:bold;flex-direction:column;} div.st-ag{font-weight:bold;padding-left:10px;}</style>', unsafe_allow_html=True)
 
-		chosen_model =st.radio("",("Logistic Regression", "SVC", "SVM", "KNN" ), horizontal=True)
+		chosen_model =st.radio("",("Logistic_Regression", "SVC", "SVM", "KNN" ), horizontal=True)
 
 
 
@@ -143,7 +143,7 @@ def main():
 			vect_text = tweet_cv.transform([tweet_text]).toarray()
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
-			predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
+			predictor = joblib.load(open(os.path.join("resources/{0}.pkl".format(chosen_model)),"rb"))
 			prediction = predictor.predict(vect_text)
 
 			# When model has successfully run, will print prediction
