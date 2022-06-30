@@ -25,6 +25,7 @@
 from lzma import PRESET_DEFAULT
 from matplotlib.collections import Collection
 from nbformat import write
+from sqlalchemy import column
 import streamlit as st
 import joblib,os
 from PIL import Image
@@ -172,9 +173,10 @@ def main():
 		with collection_text:
 			st.write(
 				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				nost
+				Data The collection of this data was funded by a Canada Foundation for Innovation JELF Grant to Chris Bauch,
+				University of Waterloo. The dataset aggregates tweets pertaining to climate change collected between Apr 27,
+				2015 and Feb 21, 2018. In total, 43943 tweets were collected. Each tweet is labelled as one of the following
+				classes:
 				
 				"""
 			)
@@ -190,27 +192,71 @@ def main():
 
 		st.write(
 				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				After collecting the data, we went through several stages to process it using some data handling techniques 
+				found in Data Sciences.
 				"""
 			)
 
-		_image, _text = st.columns((1, 3))
+		data_clean1, data_clean2 = st.columns((1, 1))
+		with data_clean1:
+			st.image('resources/images/cleaning_data.gif')
+		with data_clean2:
+			st.markdown("<h2 style='text-align: center; color: black;'>Data Cleaning</h2>", unsafe_allow_html=True)
+			st.write("""We performed some data cleaning where we reomved unnecesary things.
+						In our case, we removed all the puctuation and URL's which are very common in tweets. Lastly we
+						removed all the english stopword which are simply commonly used words.
+		
+					""")	
+			
 
-		with _image:
-			pass
-		with _text:
-			pass
+
+		st.markdown("<h2 style='text-align: center; color: orange;'>Data Balancing</h2>", unsafe_allow_html=True)
+		st.write("""
+				One of the most interesting observations we found was the imbalances that existed in the data.
+				This is very significant in classification because it might may cause overfitting. We used a 
+				sampling method to balance the data as illustrated in the following figures.""")	
+		data_image1,space, data_image2 = st.columns((3, 1, 3))
+		with data_image1:
+			st.image('resources/images/data_imbalace.png')
+		with data_image2:
+			st.image('resources/images/data_balance.png')
+		st.write("\n\n")
+		feat_eng1, feat_eng2 = st.columns((2,1))	
+		with feat_eng1:
+			st.markdown("""
+			##### We also ran the following processes:
+			- Tokenization
+			- Lemmatization
+			- Stemming
+			- N-grams
+			- Vectorization (Tf-IDF)
+			""")
+		with feat_eng2:
+			st.image('resources/images/gears1.gif')
+			st.markdown("<h3 style='text-align: center; color: black;'>Feature Engineering</h3>", unsafe_allow_html=True)
+			
+
+
+
+
+		st.markdown("Running these ensured that the data is correctly formatted and ready for model training the models.")
+
+
 
 	
 		st.markdown("<h1 style='text-align: center; color: orange;'>Models</h1>", unsafe_allow_html=True)
-
-		st.write(
-				"""
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				"""
-			)
+		
+		_text, _image = st.columns((3, 1))
+		with _text:	
+			st.write(
+					"""
+					We discuss the Machine Learning models that were used with a brief explanation of each model.
+					Then we do a visial model comparison where we compare the models using the observation we saw
+					in the model evaluation or validation processes.
+					"""
+				)
+		with _image:
+			st.image('resources/images/climate-change2.png')
 
 		# st.markdown("<h2 style='text-align: center; color: white;'>Models Used</h2>", unsafe_allow_html=True)	
 
@@ -218,37 +264,72 @@ def main():
 
 		with model1:
 			st.markdown("<h3 style='text-align: center; color: orange;'>Logistic Regression</h3>", unsafe_allow_html=True)
+			st.write("Logistic Regression was used in the biological sciences in early twentieth century. It was then used in many social science applications. Logistic Regression is used when the dependent variable(target) is categorical.")
+
 		with model2:
 			st.markdown("<h3 style='text-align: center; color: white;'>Support Vector Machines</h3>", unsafe_allow_html=True)
+			st.markdown("<p style='color: black'>The objective of the support vector machine algorithm is to find a hyperplane in an N-dimensional space(N — the number of features) that distinctly classifies the data points.</p>", unsafe_allow_html=True)
 		with model3:
 			st.markdown("<h3 style='text-align: center; color: orange;'>K Nearest Neighbours</h3>", unsafe_allow_html=True)
+			st.write("The k-nearest neighbors (KNN) algorithm is a simple, easy-to-implement supervised machine learning algorithm that can be used to solve both classification and regression problems.")
 
-		st.markdown("<h2 style='text-align: centre; color: white;'>Best and worst Performing Model</h2>", unsafe_allow_html=True)
-		
-		
+
+		st.markdown("<h2 style='text-align: center; color: white;'>Model Comparison</h2>", unsafe_allow_html=True)	
+		st.image('resources/images/data_model_comp1.png')
+
+		st.markdown("<h2 style='text-align: center; color: orange;'>Best and Worst Performing Model</h2>", unsafe_allow_html=True)	
 		model_perf1, model_perf2 = st.columns((1, 1))
 
 		with model_perf1:
-			pass
+			st.markdown("<h3 style='text-align: center; color: black;'>Support Vector Machine</h3>", unsafe_allow_html=True)
+			st.image('resources/images/st_SVM.png')
 		with model_perf2:
-			pass
+			st.image('resources/images/st_RF.png')
+			st.markdown("<h3 style='text-align: center; color: orange;'>Random Forest Classifier</h3>", unsafe_allow_html=True)
 
 		
-		st.markdown("<h1 style='text-align: centre; color: white;'>Feedback</h1>", unsafe_allow_html=True)
+		st.markdown("<h2 style='text-align: centre; color: white;'>Feedback & Recommendations</h2>", unsafe_allow_html=True)
+
+		contact_form ="""
+			<form action="https://formsubmit.co/datainnov4@gmail.com" method="POST">
+    			 <input type="text" name="Message" placeholder="Your Message" required>
+        		<input type="email" name="email" placeholder="Your email" required>
+     			<button type="submit">Send</button>
+				</form>
+			"""
+
+		local_css()
+		st.markdown(contact_form, unsafe_allow_html=True)
 
 
-		
+
 		st.markdown("<h2 style='text-align: center; color: orange;'>More information</h2>", unsafe_allow_html=True)
 
-		_image, _text = st.columns((1, 1))
+		_plug, _image, _text = st.columns((2,2, 2))
+
+		with _plug:
+			st.markdown("<h4 style='text-align: center; color: orange;'>We're the</h4>", unsafe_allow_html=True)
+			st.image('resources/images/plug.jpg')
+			st.markdown("<h2 style='text-align: center; color: orange;'>Plug!</h2>", unsafe_allow_html=True)
 
 		with _image:
 			st.markdown("<h4 style='text-align: left; color: white;'>Information links</h4>", unsafe_allow_html=True)
+			st.write("[Climate Change](https://www.un.org/en/climatechange/what-is-climate-change)")
+			st.write("[Kaggle Competitions](https://www.kaggle.com/competitions)")
+			st.write("[Machine Learning](https://www.hpe.com/za/en/what-is/machine-learning.html?jumpid=ps_1ujsi45bwk_aid-520061736&ef_id=Cj0KCQjw8O-VBhCpARIsACMvVLOtzvOcyYaTZ3pQVhF7p_XCUOjJDHXYRLkA71JsJOnsJEFbTVvyn9QaAomCEALw_wcB:G:s&s_kwcid=AL!13472!3!595096975661!e!!g!!what%20is%20machine%20learning!17059482849!137455657433&)")
+			st.write("[Streamlit](https://streamlit.io/)")
+			st.write("[AWS hosting](https://aws.amazon.com/)")
+
 		with _text:	
-			st.markdown("<h4 style='text-align: left; color: white;'>Recomended Tutorials</h4>", unsafe_allow_html=True)
+			st.markdown("<h4 style='text-align: left; color: orange;'>Recomended Tutorials</h4>", unsafe_allow_html=True)
+			st.write("[W3 Schools](https://aws.amazon.com/)")
+			st.write("[Machine learning Youtube](https://aws.amazon.com/)")
+			st.write("[DataCamp](https://aws.amazon.com/)")
 
 
-
+def local_css():
+	with open('styles.css') as f:
+		st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Required to let Streamlit instantiate our web app.  
 if __name__ == '__main__':
