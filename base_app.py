@@ -175,7 +175,7 @@ def main():
 		with collection_text:
 			st.write(
 				"""
-				Data The collection of this data was funded by a Canada Foundation for Innovation JELF Grant to Chris Bauch,
+				The collection of this data was funded by a Canada Foundation for Innovation JELF Grant to Chris Bauch,
 				University of Waterloo. The dataset aggregates tweets pertaining to climate change collected between Apr 27,
 				2015 and Feb 21, 2018. In total, 43943 tweets were collected. Each tweet is labelled as one of the following
 				classes:
