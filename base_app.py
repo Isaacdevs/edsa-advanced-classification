@@ -59,7 +59,7 @@ def main():
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
-	options = ["About Us", "Predictions", "Information"]
+	options = ["Predictions", "About Us" , "Information"]
 	selection = st.sidebar.radio("Navigation", options, horizontal=False)
 
 
@@ -150,9 +150,9 @@ def main():
 			# You can use a dictionary or similar structure to make this output
 			# more human interpretable.
 
-			# with st.spinner(text='In progress'):
-			# 	time.sleep(2)
-			# 	st.balloons()
+			with st.spinner(text='In progress'):
+				time.sleep(2)
+				st.balloons()
 		
 			if(int(prediction) == -1):
 				st.image('resources/images/img.gif')	
@@ -175,7 +175,7 @@ def main():
 		with collection_text:
 			st.write(
 				"""
-				The collection of this data was funded by a Canada Foundation for Innovation JELF Grant to Chris Bauch,
+				Data The collection of this data was funded by a Canada Foundation for Innovation JELF Grant to Chris Bauch,
 				University of Waterloo. The dataset aggregates tweets pertaining to climate change collected between Apr 27,
 				2015 and Feb 21, 2018. In total, 43943 tweets were collected. Each tweet is labelled as one of the following
 				classes:
